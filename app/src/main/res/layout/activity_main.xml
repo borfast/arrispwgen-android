@@ -1,0 +1,36 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.grounduphq.arrispwgen.MainActivity">
+
+    <!-- view for AdMob Banner Ad -->
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id"
+        tools:layout_constraintBottom_creator="1"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        ads:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="32dp" />
+
+    <DatePicker
+        android:layout_width="192dp"
+        android:layout_height="90dp"
+        android:id="@+id/start_date"
+        ads:layout_constraintLeft_toLeftOf="parent"
+        ads:layout_constraintTop_toTopOf="parent" />
+
+    <DatePicker
+        android:layout_width="192dp"
+        android:layout_height="90dp"
+        android:id="@+id/end_date"
+        ads:layout_constraintTop_toTopOf="@+id/start_date"
+        ads:layout_constraintLeft_toRightOf="@+id/start_date"
+        ads:layout_constraintVertical_bias="1.0" />
+
+</android.support.constraint.ConstraintLayout>
