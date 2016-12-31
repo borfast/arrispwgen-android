@@ -6,9 +6,9 @@ import static com.grounduphq.arrispwgen.Constants.TABLE1;
 import static com.grounduphq.arrispwgen.Constants.TABLE2;
 
 class Data {
-    private static int[] list1(LocalDate date) {
+    static int[] list1(LocalDate date) {
         // Last two digits of the year
-        int year = Integer.parseInt(Integer.toString(date.getYear()).substring(1, 3));
+        int year = Integer.parseInt(Integer.toString(date.getYear()).substring(2, 4));
 
         // Number of the month. Contrary to the Javascript version, the month indices here
         // start at 1, i.e., January == 1, so we don't need to add 1 to satisfy the algorithm.
