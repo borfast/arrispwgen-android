@@ -6,8 +6,10 @@ import org.threeten.bp.LocalDate;
 
 import java.util.Map;
 
-import static com.grounduphq.arrispwgen.TestData.custom_seed;
-import static com.grounduphq.arrispwgen.TestData.using_custom_seed;
+import static com.grounduphq.arrispwgen.Constants.DEFAULT_SEED;
+import static com.grounduphq.arrispwgen.DataHelper.CUSTOM_SEED;
+import static com.grounduphq.arrispwgen.DataHelper.using_default_seed;
+import static com.grounduphq.arrispwgen.DataHelper.using_custom_seed;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -35,13 +37,13 @@ public class ArrispwgenTest {
         }
     }
 
-//    @Test
-//    public void passwords_with_default_seed_are_correct() {
-//        test_single_passwords(using_default_seed);
-//    }
+    @Test
+    public void passwords_with_default_seed_are_correct() {
+        test_single_passwords(using_default_seed, DEFAULT_SEED);
+    }
 
     @Test
     public void passwords_with_custom_seed_are_correct() {
-        test_single_passwords(using_custom_seed, custom_seed);
+        test_single_passwords(using_custom_seed, CUSTOM_SEED);
     }
 }

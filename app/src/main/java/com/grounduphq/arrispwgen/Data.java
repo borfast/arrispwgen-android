@@ -36,7 +36,7 @@ class Data {
         return list1;
     }
 
-    private static int[] list2(String seed) {
+    static int[] list2(String seed) {
         int[] list2 = new int[8];
 
         for (int i = 0; i <= 7; i++) {
@@ -46,11 +46,11 @@ class Data {
         return list2;
     }
 
-    private static int num8(int[] l3) {
+    static int num8(int[] l3) {
         return l3[8] % 6;
     }
 
-    private static int[] list3(int[] l1, int[] l2) {
+    static int[] list3(int[] l1, int[] l2) {
         int[] list3 = new int[10];
 
         for (int i = 0; i <= 7; i++) {
@@ -66,7 +66,7 @@ class Data {
         return list3;
     }
 
-    private static int[] list4(int[] l3) {
+    static int[] list4(int[] l3) {
         int[] list4 = new int[10];
 
         for (int i = 0; i <= 9; i++) {
@@ -76,7 +76,7 @@ class Data {
         return list4;
     }
 
-    private static int[] list5(String seed, int[] l4) {
+    static int[] list5(String seed, int[] l4) {
         int[] list5 = new int[10];
 
         for (int i = 0; i <= 9; i++) {
