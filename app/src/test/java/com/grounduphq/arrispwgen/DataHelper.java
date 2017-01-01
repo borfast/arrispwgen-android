@@ -18,28 +18,25 @@ final class DataHelper {
             LocalDate.of(2016, 11, 3)
     };
 
-    static final Map<LocalDate, String> using_default_seed = new HashMap<>();
-    static final Map<LocalDate, String> using_custom_seed = new HashMap<>();
+    static final Map<LocalDate, String> potd_using_default_seed = new HashMap<LocalDate, String>() {{
+        put(TEST_DATES[0], "RZ631QL7H4");
+        put(TEST_DATES[1], "730B78VQPT");
+        put(TEST_DATES[2], "13UITQJ132");
+        put(TEST_DATES[3], "8722S2N0T7");
+        put(TEST_DATES[4], "R6HBPKY66J");
+        put(TEST_DATES[5], "CTXRK3NV0D");
+        put(TEST_DATES[6], "N776Z9GSO9");
+    }};
 
-    static {
-        using_default_seed.put(TEST_DATES[0], "RZ631QL7H4");
-        using_default_seed.put(TEST_DATES[1], "730B78VQPT");
-        using_default_seed.put(TEST_DATES[2], "13UITQJ132");
-        using_default_seed.put(TEST_DATES[3], "8722S2N0T7");
-        using_default_seed.put(TEST_DATES[4], "R6HBPKY66J");
-        using_default_seed.put(TEST_DATES[5], "CTXRK3NV0D");
-        using_default_seed.put(TEST_DATES[6], "N776Z9GSO9");
-    }
-
-    static {
-        using_custom_seed.put(TEST_DATES[0], "ZJC551QLMO");
-        using_custom_seed.put(TEST_DATES[1], "BZLLEEPPKS");
-        using_custom_seed.put(TEST_DATES[2], "0H0WEOI4WQ");
-        using_custom_seed.put(TEST_DATES[3], "T5F0OJ2RKM");
-        using_custom_seed.put(TEST_DATES[4], "SJ3LQ46SN8");
-        using_custom_seed.put(TEST_DATES[5], "1FKXJAUR1Q");
-        using_custom_seed.put(TEST_DATES[6], "JCBCYHOQBP");
-    }
+    static final Map<LocalDate, String> potd_using_custom_seed = new HashMap<LocalDate, String>() {{
+        put(TEST_DATES[0], "ZJC551QLMO");
+        put(TEST_DATES[1], "BZLLEEPPKS");
+        put(TEST_DATES[2], "0H0WEOI4WQ");
+        put(TEST_DATES[3], "T5F0OJ2RKM");
+        put(TEST_DATES[4], "SJ3LQ46SN8");
+        put(TEST_DATES[5], "1FKXJAUR1Q");
+        put(TEST_DATES[6], "JCBCYHOQBP");
+    }};
 
     /**
      * list 1 is always the same for both default and custom seeds
@@ -55,12 +52,11 @@ final class DataHelper {
             {23, 32, 24, 29, 29, 3, 24, 18}
     };
 
-    static final Map<LocalDate, int[]> test_list1 = new HashMap<>();
-    static {
+    static final Map<LocalDate, int[]> test_list1 = new HashMap<LocalDate, int[]>() {{
         for (int i = 0; i < TEST_DATES.length; i++) {
-            test_list1.put(TEST_DATES[i], l1[i]);
+            put(TEST_DATES[i], l1[i]);
         }
-    }
+    }};
 
 
     /**
@@ -81,7 +77,7 @@ final class DataHelper {
     static final Map<LocalDate, int[]> test_list3_using_default_seed = new HashMap<>();
     static {
         for (int i = 0; i < TEST_DATES.length; i++) {
-        test_list3_using_default_seed.put(TEST_DATES[i], l3_default[i]);
+            test_list3_using_default_seed.put(TEST_DATES[i], l3_default[i]);
         }
     }
 
