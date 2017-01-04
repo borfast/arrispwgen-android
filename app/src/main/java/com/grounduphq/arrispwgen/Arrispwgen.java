@@ -10,7 +10,7 @@ import java.util.Map;
 import static com.grounduphq.arrispwgen.Constants.ALPHANUM;
 
 class Arrispwgen {
-    String generate(LocalDate date, String seed) {
+    static String generate(LocalDate date, String seed) {
         int[] idx = Data.indexers(date, seed);
         int len = idx.length;
 
@@ -23,7 +23,7 @@ class Arrispwgen {
         return new String(password_of_the_day);
     }
 
-    Map<LocalDate, String> generate_multi(LocalDate start_date, LocalDate end_date, String seed) {
+    static Map<LocalDate, String> generate_multi(LocalDate start_date, LocalDate end_date, String seed) {
         if (start_date.isAfter(end_date)) {
             throw new IllegalArgumentException();
         }

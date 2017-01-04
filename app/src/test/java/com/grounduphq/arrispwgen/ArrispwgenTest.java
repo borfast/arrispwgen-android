@@ -1,6 +1,5 @@
 package com.grounduphq.arrispwgen;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.threeten.bp.LocalDate;
 
@@ -15,12 +14,6 @@ import static org.junit.Assert.assertEquals;
 
 
 public class ArrispwgenTest {
-    private Arrispwgen a;
-
-    @Before
-    public void setUp() throws Exception {
-        this.a = new Arrispwgen();
-    }
 
     // DRY function for testing single password
     private void test_single_passwords(Map<LocalDate, String> data, String seed) {
@@ -28,7 +21,7 @@ public class ArrispwgenTest {
             LocalDate date = p.getKey();
             String potd = p.getValue();
 
-            String test_potd = this.a.generate(date, seed);
+            String test_potd = Arrispwgen.generate(date, seed);
 
             assertEquals(test_potd, potd);
         }
@@ -49,14 +42,14 @@ public class ArrispwgenTest {
     public void throws_exception_if_start_date_after_end_date() {
         LocalDate d1 = LocalDate.of(2016, 1, 10);
         LocalDate d2 = LocalDate.of(2016, 1, 5);
-        this.a.generate_multi(d1, d2, DEFAULT_SEED);
+        Arrispwgen.generate_multi(d1, d2, DEFAULT_SEED);
     }
 
     @Test
     public void generates_single_password_if_date_interval_just_one_date() {
         LocalDate d1 = LocalDate.of(2016, 1, 5);
         LocalDate d2 = LocalDate.of(2016, 1, 5);
-        Map<LocalDate, String> potd_list = a.generate_multi(d1, d2, DEFAULT_SEED);
+        Map<LocalDate, String> potd_list = Arrispwgen.generate_multi(d1, d2, DEFAULT_SEED);
 
         assertEquals(1, potd_list.size());
     }
@@ -65,7 +58,7 @@ public class ArrispwgenTest {
     private void test_multiple_passwords(Map<LocalDate, String> potd_test_table, int start_index, int end_index, String seed) {
         LocalDate start_date = TEST_DATES[start_index];
         LocalDate end_date = TEST_DATES[end_index];
-        Map<LocalDate, String> potd_list = a.generate_multi(start_date, end_date, seed);
+        Map<LocalDate, String> potd_list = Arrispwgen.generate_multi(start_date, end_date, seed);
 
         int count = end_index - start_index + 1;
         assertEquals(count, potd_list.size());
