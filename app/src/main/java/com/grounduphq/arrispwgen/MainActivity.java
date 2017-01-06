@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -14,6 +14,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.LocalDate;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import static com.grounduphq.arrispwgen.Constants.DEFAULT_SEED;
@@ -21,6 +22,7 @@ import static com.grounduphq.arrispwgen.Constants.DEFAULT_SEED;
 public class MainActivity extends AppCompatActivity {
     private LocalDate start_date;
     private LocalDate end_date;
+    ListView potd_list_view;
 
     // Remove the below line after defining your own ad unit ID.
     private static final String TOAST_TEXT = "Test ads are being shown. "
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Toasts the test ad message on the screen. Remove this after defining your own ad unit ID.
         Toast.makeText(this, TOAST_TEXT, Toast.LENGTH_LONG).show();
+
+        potd_list_view = (ListView) findViewById(R.id.potd_list);
 
         update_potd_list();
     }
@@ -82,9 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void update_potd_list() {
         Map<LocalDate, String> potd_list = Arrispwgen.generate_multi(start_date, end_date, DEFAULT_SEED);
-
-        TextView potd_list_view = (TextView) findViewById(R.id.potd_list);
-
-        potd_list_view.setText(potd_list.toString());
+        ArrayList<Map.Entry<LocalDate, String>> list = new ArrayList<>(potd_list.entrySet());
+        PotdListArrayAdapter adapter = new PotdListArrayAdapter(this, R.layout.potd_list_item, list);
+        potd_list_view.setAdapter(adapter);
     }
 }
