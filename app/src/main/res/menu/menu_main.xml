@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/action_set_seed"
-        android:icon="@drawable/ic_settings_black_24dp"
+        android:icon="@drawable/ic_local_florist_black_24dp"
         android:title="@string/action_set_seed"
         app:showAsAction="ifRoom" />
 </menu>
