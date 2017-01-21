@@ -6,11 +6,15 @@
     tools:context="com.grounduphq.arrispwgen.MainActivity">
 
     <ListView
-        android:layout_width="344dp"
-        android:layout_height="445dp"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp"
-        android:id="@+id/potd_list" />
+        android:id="@+id/potd_list"
+        android:layout_width="304dp"
+        android:layout_height="431dp"
+        android:layout_marginStart="16dp"
+        ads:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        ads:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp"
+        ads:layout_constraintTop_toTopOf="parent" />
 
     <!-- view for AdMob Banner Ad -->
     <com.google.android.gms.ads.AdView
