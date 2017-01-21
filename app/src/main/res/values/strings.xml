@@ -10,4 +10,9 @@
         For more information, see https://support.google.com/admob/answer/3052638
     <!- -->
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="dialog_set_seed">Enter the value for the seed</string>
+    <string name="set_seed">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="set_seed_to_default">Default</string>
+    <string name="txt_seed_hint">Enter a seed</string>
 </resources>

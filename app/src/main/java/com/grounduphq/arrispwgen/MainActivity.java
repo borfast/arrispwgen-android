@@ -1,11 +1,13 @@
 package com.grounduphq.arrispwgen;
 
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,7 +22,7 @@ import java.util.Map;
 
 import static com.grounduphq.arrispwgen.Constants.DEFAULT_SEED;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SetSeedDialogFragment.SetSeedDialogListener {
     private LocalDate start_date;
     private LocalDate end_date;
     private String seed;
@@ -71,7 +73,16 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_selet_dates:
                 DialogFragment start_date_fragment = new DatePickerFragment();
                 start_date_fragment.show(getFragmentManager(), "start_date_picker");
+                return true;
 
+            case R.id.action_set_seed:
+                DialogFragment set_seed_fragment = new SetSeedDialogFragment();
+
+                Bundle args = new Bundle();
+                args.putString("seed", seed);
+                set_seed_fragment.setArguments(args);
+
+                set_seed_fragment.show(getFragmentManager(), "set_seed_dialog");
                 return true;
 
             default:
@@ -95,6 +106,28 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Map.Entry<LocalDate, String>> list = new ArrayList<>(potd_list.entrySet());
         PotdListArrayAdapter adapter = new PotdListArrayAdapter(this, R.layout.potd_list_item, list);
         potd_list_view.setAdapter(adapter);
+    }
+
+    // User pressed OK
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        Dialog dialogView = dialog.getDialog();
+        EditText txt_seed = (EditText) dialogView.findViewById(R.id.txt_seed);
+        seed = txt_seed.getText().toString();
+        generate_potd_list();
+    }
+
+    // User pressed Cancel
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+
+    }
+
+    // User pressed default
+    @Override
+    public void onDialogNeutralClick(DialogFragment dialog) {
+        seed = DEFAULT_SEED;
+        generate_potd_list();
     }
 
     private class ArrispwgenTask extends AsyncTask<Void, Void, Map<LocalDate, String>> {
