@@ -15,7 +15,8 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         // Use the current date as the default date in the picker
         final LocalDate date = LocalDate.now();
         int year = date.getYear();
-        int month = date.getMonthValue();
+        // threeten's LocalDate months are zero-indexed.
+        int month = date.getMonthValue() - 1;
         int day = date.getDayOfMonth();
 
         // Create a new instance of DatePickerDialog and return it
@@ -27,6 +28,9 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         String tag = getTag();
 
         MainActivity activity = (MainActivity) getActivity();
+
+        // threeten's LocalDate months are zero-indexed.
+        month++;
 
         switch (tag) {
             case "start_date_picker":
