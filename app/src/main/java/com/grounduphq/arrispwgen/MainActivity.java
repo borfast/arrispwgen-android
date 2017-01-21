@@ -1,6 +1,7 @@
 package com.grounduphq.arrispwgen;
 
 import android.app.DialogFragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import static com.grounduphq.arrispwgen.Constants.DEFAULT_SEED;
 public class MainActivity extends AppCompatActivity {
     private LocalDate start_date;
     private LocalDate end_date;
+    private String seed;
     ListView potd_list_view;
 
     // Remove the below line after defining your own ad unit ID.
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         AndroidThreeTen.init(this);
         start_date = LocalDate.now();
         end_date = LocalDate.now();
+        seed = DEFAULT_SEED;
         setContentView(R.layout.activity_main);
 
         // Load an ad into the AdMob banner view.
@@ -47,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         potd_list_view = (ListView) findViewById(R.id.potd_list);
 
-        update_potd_list();
+        generate_potd_list();
     }
 
     @Override
@@ -84,10 +87,27 @@ public class MainActivity extends AppCompatActivity {
         end_date = LocalDate.of(year, month, dayOfMonth);
     }
 
-    public void update_potd_list() {
-        Map<LocalDate, String> potd_list = Arrispwgen.generate_multi(start_date, end_date, DEFAULT_SEED);
+    public void generate_potd_list() {
+        (new ArrispwgenTask()).execute();
+    }
+
+    public void update_potd_list(Map<LocalDate, String> potd_list) {
         ArrayList<Map.Entry<LocalDate, String>> list = new ArrayList<>(potd_list.entrySet());
         PotdListArrayAdapter adapter = new PotdListArrayAdapter(this, R.layout.potd_list_item, list);
         potd_list_view.setAdapter(adapter);
+    }
+
+    private class ArrispwgenTask extends AsyncTask<Void, Void, Map<LocalDate, String>> {
+        /* The system calls this to perform work in a worker thread and
+         * delivers it the parameters given to AsyncTask.execute() */
+        protected Map<LocalDate, String> doInBackground(Void... params) {
+            return Arrispwgen.generate_multi(start_date, end_date, seed);
+        }
+
+        /* The system calls this to perform work in the UI thread and delivers
+         * the result from doInBackground() */
+        protected void onPostExecute(Map<LocalDate, String> potd_list) {
+            update_potd_list(potd_list);
+        }
     }
 }

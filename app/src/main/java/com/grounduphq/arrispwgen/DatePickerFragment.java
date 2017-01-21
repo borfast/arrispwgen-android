@@ -26,17 +26,17 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         String tag = getTag();
 
-        MainActivity act = (MainActivity) getActivity();
+        MainActivity activity = (MainActivity) getActivity();
 
         switch (tag) {
             case "start_date_picker":
-                act.set_start_date(year, month, dayOfMonth);
+                activity.set_start_date(year, month, dayOfMonth);
                 DialogFragment end_date_fragment = new DatePickerFragment();
                 end_date_fragment.show(getFragmentManager(), "end_date_picker");
                 break;
             case "end_date_picker":
-                act.set_end_date(year, month, dayOfMonth);
-                act.update_potd_list();
+                activity.set_end_date(year, month, dayOfMonth);
+                activity.generate_potd_list();
                 break;
         }
     }
