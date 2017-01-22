@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
     private LocalDate start_date;
     private LocalDate end_date;
     private String seed;
-    ListView potd_list_view;
+    private ListView potd_list_view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,9 +93,9 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
         (new ArrispwgenTask()).execute();
     }
 
-    public void update_potd_list(Map<LocalDate, String> potd_list) {
+    private void update_potd_list(Map<LocalDate, String> potd_list) {
         ArrayList<Map.Entry<LocalDate, String>> list = new ArrayList<>(potd_list.entrySet());
-        PotdListArrayAdapter adapter = new PotdListArrayAdapter(this, R.layout.potd_list_item, list);
+        PotdListArrayAdapter adapter = new PotdListArrayAdapter(this, list);
         potd_list_view.setAdapter(adapter);
     }
 
@@ -110,13 +110,13 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
 
     // User pressed Cancel
     @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
+    public void onDialogNegativeClick() {
 
     }
 
     // User pressed default
     @Override
-    public void onDialogNeutralClick(DialogFragment dialog) {
+    public void onDialogNeutralClick() {
         seed = DEFAULT_SEED;
         generate_potd_list();
     }

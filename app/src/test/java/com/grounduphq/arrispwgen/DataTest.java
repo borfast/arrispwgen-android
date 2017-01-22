@@ -11,17 +11,6 @@ import static com.grounduphq.arrispwgen.Data.list4;
 import static com.grounduphq.arrispwgen.Data.list5;
 import static com.grounduphq.arrispwgen.Data.num8;
 import static com.grounduphq.arrispwgen.DataHelper.*;
-import static com.grounduphq.arrispwgen.DataHelper.CUSTOM_SEED;
-import static com.grounduphq.arrispwgen.DataHelper.TEST_DATES;
-import static com.grounduphq.arrispwgen.DataHelper.test_list1;
-import static com.grounduphq.arrispwgen.DataHelper.test_list2_using_custom_seed;
-import static com.grounduphq.arrispwgen.DataHelper.test_list2_using_default_seed;
-import static com.grounduphq.arrispwgen.DataHelper.test_list3_using_custom_seed;
-import static com.grounduphq.arrispwgen.DataHelper.test_list3_using_default_seed;
-import static com.grounduphq.arrispwgen.DataHelper.test_list4_using_custom_seed;
-import static com.grounduphq.arrispwgen.DataHelper.test_list4_using_default_seed;
-import static com.grounduphq.arrispwgen.DataHelper.test_list5_using_custom_seed;
-import static com.grounduphq.arrispwgen.DataHelper.test_list5_using_default_seed;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
 

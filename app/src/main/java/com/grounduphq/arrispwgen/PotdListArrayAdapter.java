@@ -15,8 +15,8 @@ import java.util.Map;
 
 class PotdListArrayAdapter extends ArrayAdapter<Map.Entry<LocalDate, String>> {
 
-    PotdListArrayAdapter(Context context, int resource, ArrayList<Map.Entry<LocalDate, String>> items) {
-        super(context, resource, items);
+    PotdListArrayAdapter(Context context, ArrayList<Map.Entry<LocalDate, String>> items) {
+        super(context, R.layout.potd_list_item, items);
     }
 
     @NonNull

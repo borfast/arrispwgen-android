@@ -19,12 +19,12 @@ public class SetSeedDialogFragment extends DialogFragment {
          * Each method passes the DialogFragment in case the host needs to query it. */
     public interface SetSeedDialogListener {
         void onDialogPositiveClick(DialogFragment dialog);
-        void onDialogNegativeClick(DialogFragment dialog);
-        void onDialogNeutralClick(DialogFragment dialog);
+        void onDialogNegativeClick();
+        void onDialogNeutralClick();
     }
 
     // Use this instance of the interface to deliver action events
-    SetSeedDialogListener mListener;
+    private SetSeedDialogListener mListener;
 
     // Override the Fragment.onAttach() method to instantiate the SetSeedDialogListener
     @Override
@@ -68,12 +68,12 @@ public class SetSeedDialogFragment extends DialogFragment {
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        mListener.onDialogNegativeClick(SetSeedDialogFragment.this);
+                        mListener.onDialogNegativeClick();
                     }
                 })
                 .setNeutralButton(R.string.set_seed_to_default, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        mListener.onDialogNeutralClick(SetSeedDialogFragment.this);
+                        mListener.onDialogNeutralClick();
                     }
                 });
 
