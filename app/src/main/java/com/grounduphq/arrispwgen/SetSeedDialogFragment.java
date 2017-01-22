@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 public class SetSeedDialogFragment extends DialogFragment {
     /* The activity that creates an instance of this dialog fragment must
-         * implement this interface in order to receive event callbacks.
-         * Each method passes the DialogFragment in case the host needs to query it. */
+     * implement this interface in order to receive event callbacks.
+     * Each method passes the DialogFragment in case the host needs to query it. */
     public interface SetSeedDialogListener {
         void onDialogPositiveClick(DialogFragment dialog);
         void onDialogNegativeClick();

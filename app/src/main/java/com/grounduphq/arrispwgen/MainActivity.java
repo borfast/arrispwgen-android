@@ -17,6 +17,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Map;
 
 import static com.grounduphq.arrispwgen.Constants.DEFAULT_SEED;
@@ -96,6 +97,12 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
     private void update_potd_list(Map<LocalDate, String> potd_list) {
         ArrayList<Map.Entry<LocalDate, String>> list = new ArrayList<>(potd_list.entrySet());
         PotdListArrayAdapter adapter = new PotdListArrayAdapter(this, list);
+        adapter.sort(new Comparator<Map.Entry<LocalDate, String>>() {
+            @Override
+            public int compare(Map.Entry<LocalDate, String> o1, Map.Entry<LocalDate, String> o2) {
+                return o1.getKey().compareTo(o2.getKey()); //isAfter(o2.getKey());
+            }
+        });
         potd_list_view.setAdapter(adapter);
     }
 
