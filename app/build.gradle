@@ -7,14 +7,21 @@ android {
         applicationId "com.grounduphq.arrispwgen"
         minSdkVersion 19
         targetSdkVersion 25
-        versionName '1.1'
+        versionName '1.2'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        versionCode 2
+        versionCode 3
     }
     buildTypes {
         release {
-            minifyEnabled false
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+            debuggable false
+            jniDebuggable false
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
     productFlavors {
