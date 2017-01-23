@@ -9,4 +9,6 @@
     <string name="cancel">Cancel</string>
     <string name="set_seed_to_default">Default</string>
     <string name="txt_seed_hint">Enter a seed</string>
+    <string name="refresh">Refresh</string>
+    <string name="arris_potd_generator_logo_description">Arris POTD Generator logo</string>
 </resources>
