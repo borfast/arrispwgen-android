@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Arrispwgen Android</string>
+    <string name="app_name">Arris POTD Generator</string>
 
     <string name="action_select_dates">Select Dates</string>
     <string name="action_set_seed">Set Seed</string>
