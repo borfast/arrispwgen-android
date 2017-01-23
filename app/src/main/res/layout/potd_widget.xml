@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:background="#55000000">
 <ImageView
     android:id="@+id/imageView"
-    android:layout_width="0dp"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:layout_weight="1"
     android:src="@mipmap/ic_launcher"
     android:contentDescription="@string/arris_potd_generator_logo_description" />
 
-<TextView
+    <TextView
     android:id="@+id/textView"
     android:layout_width="0dp"
     android:layout_height="match_parent"
     android:layout_weight="1"
     android:gravity="center"
-    android:textStyle="bold" />
+    android:textStyle="bold"
+        android:textSize="18sp" />
 
-<Button
-    android:id="@+id/actionButton"
-    android:layout_width="0dp"
-    android:layout_height="match_parent"
-    android:layout_weight="1"
-    android:text="@string/refresh" />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:srcCompat="@android:drawable/ic_popup_sync"
+        android:id="@+id/actionButton"
+        android:contentDescription="@string/regenerate_the_current_password"
+        android:background="@android:drawable/screen_background_dark_transparent"
+        android:layout_weight="0.20" />
 
 </LinearLayout>

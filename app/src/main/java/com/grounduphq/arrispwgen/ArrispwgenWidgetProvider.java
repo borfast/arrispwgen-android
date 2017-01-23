@@ -7,16 +7,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
+import org.threeten.bp.LocalDate;
+
 public class ArrispwgenWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int widgetId : appWidgetIds) {
-            String number = "100";
+            String seed = "MSKGJEUSHG";
+            String potd = Arrispwgen.generate(LocalDate.now(), seed);
 
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                     R.layout.potd_widget);
-            remoteViews.setTextViewText(R.id.textView, number);
+            remoteViews.setTextViewText(R.id.textView, potd);
 
             Intent intent = new Intent(context, ArrispwgenWidgetProvider.class);
             intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
