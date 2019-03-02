@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -16,9 +15,12 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.LocalDate;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Map;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import static com.grounduphq.arrispwgen.Constants.DEFAULT_SEED;
 
@@ -38,11 +40,11 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
         setContentView(R.layout.activity_main);
 
         // Load an ad into the AdMob banner view.
-        AdView adView = (AdView) findViewById(R.id.adView);
+        AdView adView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().setRequestAgent("android_studio:ad_template").build();
         adView.loadAd(adRequest);
 
-        potd_list_view = (ListView) findViewById(R.id.potd_list);
+        potd_list_view = findViewById(R.id.potd_list);
 
         generate_potd_list();
     }
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
     }
 
     public void generate_potd_list() {
-        (new ArrispwgenTask()).execute();
+        (new ArrispwgenTask(this)).execute();
     }
 
     private void update_potd_list(Map<LocalDate, String> potd_list) {
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         Dialog dialogView = dialog.getDialog();
-        EditText txt_seed = (EditText) dialogView.findViewById(R.id.txt_seed);
+        EditText txt_seed = dialogView.findViewById(R.id.txt_seed);
         seed = txt_seed.getText().toString();
         generate_potd_list();
     }
@@ -128,17 +130,34 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
         generate_potd_list();
     }
 
-    private class ArrispwgenTask extends AsyncTask<Void, Void, Map<LocalDate, String>> {
+    private static class ArrispwgenTask extends AsyncTask<Void, Void, Map<LocalDate, String>> {
+        private WeakReference<MainActivity> activityReference;
+        private LocalDate start_date;
+        private LocalDate end_date;
+        private String seed;
+
+        // only retain a weak reference to the activity
+        private ArrispwgenTask(MainActivity activityReference) {
+            this.activityReference = new WeakReference<>(activityReference);
+            this.start_date = activityReference.start_date;
+            this.end_date = activityReference.end_date;
+            this.seed = activityReference.seed;
+        }
+
         /* The system calls this to perform work in a worker thread and
          * delivers it the parameters given to AsyncTask.execute() */
         protected Map<LocalDate, String> doInBackground(Void... params) {
-            return Arrispwgen.generate_multi(start_date, end_date, seed);
+            return Arrispwgen.generate_multi(this.start_date, this.end_date, this.seed);
         }
 
         /* The system calls this to perform work in the UI thread and delivers
          * the result from doInBackground() */
         protected void onPostExecute(Map<LocalDate, String> potd_list) {
-            update_potd_list(potd_list);
+            // get a reference to the activity if it is still there
+            MainActivity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            activity.update_potd_list(potd_list);
         }
     }
 }

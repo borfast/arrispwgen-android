@@ -1,7 +1,6 @@
 package com.grounduphq.arrispwgen;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,8 @@ import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 class PotdListArrayAdapter extends ArrayAdapter<Map.Entry<LocalDate, String>> {
 
@@ -31,8 +32,8 @@ class PotdListArrayAdapter extends ArrayAdapter<Map.Entry<LocalDate, String>> {
         }
 
         // Lookup view for data population
-        TextView date = (TextView) convertView.findViewById(R.id.potd_date);
-        TextView password = (TextView) convertView.findViewById(R.id.password);
+        TextView date = convertView.findViewById(R.id.potd_date);
+        TextView password = convertView.findViewById(R.id.password);
 
         // Populate the data into the template view using the data object
         if (potd != null) {

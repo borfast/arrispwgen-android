@@ -41,3 +41,9 @@ proguard/
 
 # Keystore files
 *.jks
+
+# Keystore credentials
+release.properties
+
+AdMob App ID and other secrets
+**/*/res/values/secrets.xml

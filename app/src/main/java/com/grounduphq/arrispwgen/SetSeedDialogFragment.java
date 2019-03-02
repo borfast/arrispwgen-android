@@ -1,16 +1,20 @@
 package com.grounduphq.arrispwgen;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.Objects;
+
+import androidx.appcompat.app.AlertDialog;
 
 
 public class SetSeedDialogFragment extends DialogFragment {
@@ -56,8 +60,8 @@ public class SetSeedDialogFragment extends DialogFragment {
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        View view = inflater.inflate(R.layout.dialog_set_seed, null);
-        EditText txt = (EditText) view.findViewById(R.id.txt_seed);
+        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.dialog_set_seed, null);
+        EditText txt = view.findViewById(R.id.txt_seed);
 
         builder.setView(view)
                 .setMessage(R.string.dialog_set_seed)
@@ -84,7 +88,7 @@ public class SetSeedDialogFragment extends DialogFragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                    Objects.requireNonNull(dialog.getWindow()).setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
                 }
             }
         });
