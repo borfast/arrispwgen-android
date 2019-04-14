@@ -2,12 +2,19 @@ package com.grounduphq.arrispwgen;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -45,6 +52,20 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
         adView.loadAd(adRequest);
 
         potd_list_view = findViewById(R.id.potd_list);
+        potd_list_view.setOnItemLongClickListener(new ListView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView potd_view = view.findViewById(R.id.password);
+                String potd = potd_view.getText().toString();
+
+                Context ctx = view.getContext();
+                ClipboardManager clipboard = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("ARRISPWGENPOTD", potd);
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(ctx, "Password copied to clipboard.", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
 
         generate_potd_list();
     }
@@ -96,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
         (new ArrispwgenTask(this)).execute();
     }
 
-    private void update_potd_list(Map<LocalDate, String> potd_list) {
+    private void update_potd_list_view(Map<LocalDate, String> potd_list) {
         ArrayList<Map.Entry<LocalDate, String>> list = new ArrayList<>(potd_list.entrySet());
         PotdListArrayAdapter adapter = new PotdListArrayAdapter(this, list);
         adapter.sort(new Comparator<Map.Entry<LocalDate, String>>() {
@@ -157,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
             MainActivity activity = activityReference.get();
             if (activity == null || activity.isFinishing()) return;
 
-            activity.update_potd_list(potd_list);
+            activity.update_potd_list_view(potd_list);
         }
     }
 }
