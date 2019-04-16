@@ -16,6 +16,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.ads.consent.ConsentInformation;
+import com.google.ads.consent.ConsentStatus;
+import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -46,11 +49,24 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
         seed = DEFAULT_SEED;
         setContentView(R.layout.activity_main);
 
-        // Load an ad into the AdMob banner view.
+        // Set up consent for Android Advertising ID, showing a consent dialog if necessary.
         AdView adView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().setRequestAgent("android_studio:ad_template").build();
+        AdsConsent adsConsent = new AdsConsent(this, adView);
+        ConsentInformation consentInformation = adsConsent.initialise();
+
+        // Load an ad into the AdMob banner view.
+
+        AdRequest.Builder adRequestBuilder = new AdRequest.Builder().setRequestAgent("android_studio:ad_template");
+        // Use non-personalised ads if the user so chose
+        if (consentInformation.getConsentStatus() == ConsentStatus.NON_PERSONALIZED) {
+            Bundle extras = new Bundle();
+            extras.putString("npa", "1");
+            adRequestBuilder.addNetworkExtrasBundle(AdMobAdapter.class, extras);
+        }
+        AdRequest adRequest = adRequestBuilder.build();
         adView.loadAd(adRequest);
 
+        // Allow long-clicking to copy the password
         potd_list_view = findViewById(R.id.potd_list);
         potd_list_view.setOnItemLongClickListener(new ListView.OnItemLongClickListener() {
             @Override
