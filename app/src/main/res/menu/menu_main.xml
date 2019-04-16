@@ -2,15 +2,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.grounduphq.arrispwgen.MainActivity">
-    <item
-        android:id="@+id/action_selet_dates"
-        android:icon="@drawable/ic_date_range_black_24dp"
-        android:title="@string/action_select_dates"
-        app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_set_seed"
-        android:icon="@drawable/ic_local_florist_black_24dp"
-        android:title="@string/action_set_seed"
-        app:showAsAction="ifRoom" />
+        android:id="@+id/empty"
+        android:title="@string/options"
+        android:orderInCategory="101"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_vert_black_dots">
+
+        <menu>
+
+            <item
+                android:id="@+id/action_selet_dates"
+                android:title="@string/action_select_dates"
+                app:showAsAction="ifRoom" />
+
+            <item
+                android:id="@+id/action_set_seed"
+                android:title="@string/action_set_seed"
+                app:showAsAction="ifRoom" />
+
+            <item
+                android:id="@+id/action_reset_add_preferences"
+                android:title="@string/action_reset_add_preferences"
+                app:showAsAction="ifRoom" />
+
+        </menu>
+
+    </item>
+
+
+
 </menu>

@@ -9,4 +9,6 @@
     <string name="cancel">Cancel</string>
     <string name="set_seed_to_default">Default</string>
     <string name="txt_seed_hint">Enter a seed</string>
+    <string name="options">Options</string>
+    <string name="action_reset_add_preferences">Reset ads preferences</string>
 </resources>

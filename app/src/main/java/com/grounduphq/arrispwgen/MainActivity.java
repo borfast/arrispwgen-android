@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Map;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import static com.grounduphq.arrispwgen.Constants.DEFAULT_SEED;
@@ -49,22 +51,7 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
         seed = DEFAULT_SEED;
         setContentView(R.layout.activity_main);
 
-        // Set up consent for Android Advertising ID, showing a consent dialog if necessary.
-        AdView adView = findViewById(R.id.adView);
-        AdsConsent adsConsent = new AdsConsent(this, adView);
-        ConsentInformation consentInformation = adsConsent.initialise();
-
-        // Load an ad into the AdMob banner view.
-
-        AdRequest.Builder adRequestBuilder = new AdRequest.Builder().setRequestAgent("android_studio:ad_template");
-        // Use non-personalised ads if the user so chose
-        if (consentInformation.getConsentStatus() == ConsentStatus.NON_PERSONALIZED) {
-            Bundle extras = new Bundle();
-            extras.putString("npa", "1");
-            adRequestBuilder.addNetworkExtrasBundle(AdMobAdapter.class, extras);
-        }
-        AdRequest adRequest = adRequestBuilder.build();
-        adView.loadAd(adRequest);
+        initAds(false);
 
         // Allow long-clicking to copy the password
         potd_list_view = findViewById(R.id.potd_list);
@@ -84,6 +71,30 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
         });
 
         generate_potd_list();
+    }
+
+    private void initAds(boolean reset) {
+        // Set up consent for Android Advertising ID, showing a consent dialog if necessary.
+        AdView adView = findViewById(R.id.adView);
+        AdsConsent adsConsent = new AdsConsent(this, adView);
+
+        if (reset) {
+            adsConsent.resetConsent();
+        }
+
+        ConsentInformation consentInformation = adsConsent.initialise();
+
+        // Load an ad into the AdMob banner view.
+
+        AdRequest.Builder adRequestBuilder = new AdRequest.Builder().setRequestAgent("android_studio:ad_template");
+        // Use non-personalised ads if the user so chose
+        if (consentInformation.getConsentStatus() == ConsentStatus.NON_PERSONALIZED) {
+            Bundle extras = new Bundle();
+            extras.putString("npa", "1");
+            adRequestBuilder.addNetworkExtrasBundle(AdMobAdapter.class, extras);
+        }
+        AdRequest adRequest = adRequestBuilder.build();
+        adView.loadAd(adRequest);
     }
 
     @Override
@@ -114,6 +125,29 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
                 set_seed_fragment.setArguments(args);
 
                 set_seed_fragment.show(getFragmentManager(), "set_seed_dialog");
+                return true;
+
+            case R.id.action_reset_add_preferences:
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                initAds(true);
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Are you sure you want to reset your ads preferences?")
+                        .setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener)
+                        .show();
                 return true;
 
             default:
