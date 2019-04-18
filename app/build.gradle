@@ -11,9 +11,9 @@ android {
         applicationId "com.grounduphq.arrispwgen"
         minSdkVersion 19
         targetSdkVersion 28
-        versionName '1.7'
+        versionCode 8
+        versionName '1.8'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        versionCode 7
     }
     buildTypes {
         release {
