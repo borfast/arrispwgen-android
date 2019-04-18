@@ -6,6 +6,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -148,6 +150,13 @@ public class MainActivity extends AppCompatActivity implements SetSeedDialogFrag
                         .setPositiveButton("Yes", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener)
                         .show();
+                return true;
+
+            case R.id.action_show_privacy_policy:
+                String url = getBaseContext().getResources().getString(R.string.admob_privacy_url);
+                Uri privacyUrl = Uri.parse(url);
+                Intent launchBrowser = new Intent(Intent.ACTION_VIEW, privacyUrl);
+                startActivity(launchBrowser);
                 return true;
 
             default:
