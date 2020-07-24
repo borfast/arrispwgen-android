@@ -47,3 +47,4 @@ release.properties
 
 AdMob App ID and other secrets
 **/*/res/values/secrets.xml
+/app/google-services.json
